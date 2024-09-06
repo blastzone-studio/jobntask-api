@@ -43,7 +43,7 @@ Ce projet propose une API modulaire et flexible pour gérer des jobs, des tâche
 
 ## **Prérequis**
 
-- .NET SDK (version X.X ou supérieure)
+- .NET SDK (version 6 ou supérieure)
 - Visual Studio ou tout autre IDE compatible avec .NET
 - Outil de gestion des dépendances NuGet (inclus dans .NET SDK)
 
