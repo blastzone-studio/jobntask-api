@@ -8,5 +8,4 @@ public interface IJobRepository
     void RemoveJob(IJob job);
     IJob? GetJobById(string id);
     List<IJob> GetAllJobs();
-    List<IJob> GetJobsByEnterpriseId(string enterpriseId);
 }

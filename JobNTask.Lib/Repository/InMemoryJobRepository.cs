@@ -26,9 +26,4 @@ public class InMemoryJobRepository : IJobRepository
     {
         return _jobs.Values.ToList();
     }
-    
-    public List<IJob> GetJobsByEnterpriseId(string enterpriseId)
-    {
-        return _jobs.Values.Where(job => job.Enterprise.Id == enterpriseId).ToList();
-    }
 }
