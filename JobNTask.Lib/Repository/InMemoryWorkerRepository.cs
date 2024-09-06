@@ -1,3 +1,5 @@
+using JobNTask.Lib.Model;
+
 namespace JobNTask.Lib.Repository;
 
 public class InMemoryWorkerRepository<T> : IWorkerRepository<T> where T : IWorkerEntity

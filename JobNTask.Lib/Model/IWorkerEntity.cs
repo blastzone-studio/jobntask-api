@@ -1,4 +1,4 @@
-namespace JobNTask.Lib;
+namespace JobNTask.Lib.Model;
 
 public interface IWorkerEntity 
 {

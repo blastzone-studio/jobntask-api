@@ -1,3 +1,5 @@
+using JobNTask.Lib.Model;
+
 namespace JobNTask.Lib.Repository;
 
 public interface IWorkerRepository<T> where T : IWorkerEntity
