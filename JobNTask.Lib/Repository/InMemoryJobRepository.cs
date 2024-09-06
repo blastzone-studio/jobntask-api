@@ -1,6 +1,6 @@
-using jobntask_lib.Model;
+using JobNTask.Lib.Model;
 
-namespace jobntask_lib.Repository;
+namespace JobNTask.Lib.Repository;
 
 public class InMemoryJobRepository : IJobRepository
 {
@@ -25,5 +25,10 @@ public class InMemoryJobRepository : IJobRepository
     public List<IJob> GetAllJobs()
     {
         return _jobs.Values.ToList();
+    }
+    
+    public List<IJob> GetJobsByEnterpriseId(string enterpriseId)
+    {
+        return _jobs.Values.Where(job => job.Enterprise.Id == enterpriseId).ToList();
     }
 }

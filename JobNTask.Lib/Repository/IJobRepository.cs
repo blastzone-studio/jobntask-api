@@ -1,6 +1,6 @@
-using jobntask_lib.Model;
+using JobNTask.Lib.Model;
 
-namespace jobntask_lib.Repository;
+namespace JobNTask.Lib.Repository;
 
 public interface IJobRepository
 {
@@ -8,4 +8,5 @@ public interface IJobRepository
     void RemoveJob(IJob job);
     IJob? GetJobById(string id);
     List<IJob> GetAllJobs();
+    List<IJob> GetJobsByEnterpriseId(string enterpriseId);
 }

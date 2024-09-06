@@ -1,4 +1,4 @@
-namespace jobntask_lib.Model;
+namespace JobNTask.Lib.Model;
 
 public interface ITask
 {
