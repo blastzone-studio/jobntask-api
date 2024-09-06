@@ -4,6 +4,8 @@ using JobNTask.Lib.Repository;
 using JobNTask.Lib.Service;
 using System;
 
+namespace JobNTask.Tests;
+
 [TestClass]
 public class TaskAssignmentServiceTests
 {

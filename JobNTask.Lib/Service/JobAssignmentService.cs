@@ -1,3 +1,4 @@
+using JobNTask.Lib.Model;
 using JobNTask.Lib.Repository;
 
 namespace JobNTask.Lib.Service;
