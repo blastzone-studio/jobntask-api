@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JobNTask.Lib.Model;
 using JobNTask.Lib.Repository;
 using JobNTask.Lib.Service;
+using System;
 
 
 [TestClass]
@@ -39,5 +40,25 @@ public class JobTaskAssignmentServiceTests
         _jobTaskAssignmentService.RemoveTaskFromJob(job.Id, task.Id);
         tasks = _jobTaskAssignmentService.GetTasksForJob(job.Id);
         Assert.AreEqual(0, tasks.Count);
+    }
+
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void CannotAssignTaskToMultipleJobs()
+    {
+        var job1 = new Job("1", "Build a Website");
+        var job2 = new Job("2", "Develop a Mobile App");
+        var task = new Task("1", "Design the Homepage");
+
+        _jobRepository.AddJob(job1);
+        _jobRepository.AddJob(job2);
+        _taskRepository.AddTask(task);
+
+        // Assign task to the first job
+        _jobTaskAssignmentService.AssignTaskToJob(job1.Id, task.Id);
+
+        // Attempt to assign the same task to the second job should throw an exception
+        _jobTaskAssignmentService.AssignTaskToJob(job2.Id, task.Id);
     }
 }

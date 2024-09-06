@@ -18,6 +18,7 @@ public class JobTaskAssignmentService
         _jobRepository = jobRepository;
     }
 
+    
     public void AssignTaskToJob(string jobId, string taskId)
     {
         var job = _jobRepository.GetJobById(jobId);
@@ -25,6 +26,12 @@ public class JobTaskAssignmentService
 
         if (job != null && task != null)
         {
+            var currentJobId = _jobTaskRelationRepository.GetJobByTaskId(taskId);
+            if (currentJobId != null)
+            {
+                throw new InvalidOperationException($"La tâche {taskId} est déjà assignée au job {currentJobId}.");
+            }
+
             _jobTaskRelationRepository.AddRelation(jobId, taskId);
         }
     }
