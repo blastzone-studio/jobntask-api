@@ -4,8 +4,18 @@ public interface ITask
 {
     string Id { get; }
     string Description { get; }
-    bool IsCompleted { get; }
+    
 
-    void MarkAsCompleted();
-    void MarkAsIncomplete();
+    ITaskAction Action { get; }
+    int CurrentQuantity { get; set; }
+    int RequiredQuantity { get; }
+    ITaskTarget Target { get; }
+
+    bool IsCompleted() {
+        return CurrentQuantity == RequiredQuantity;
+    }
+
+    void UpdateProgress(int quantity) {
+        CurrentQuantity += quantity;
+    }
 }
