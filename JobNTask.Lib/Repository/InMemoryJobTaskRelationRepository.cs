@@ -31,7 +31,7 @@ public class InMemoryJobTaskRelationRepository : IJobTaskRelationRepository
             .ToList();
     }
 
-    public string GetJobByTaskId(string taskId)
+    public string? GetJobIdByTaskId(string taskId)
     {
         return _relations
             .Where(r => r.TaskId == taskId)

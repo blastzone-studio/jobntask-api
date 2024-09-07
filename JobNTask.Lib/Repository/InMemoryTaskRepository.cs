@@ -22,7 +22,7 @@ public class InMemoryTaskRepository : ITaskRepository
         }
     }
 
-    public ITask GetTaskById(string id)
+    public ITask? GetTaskById(string id)
     {
         _tasks.TryGetValue(id, out var task);
         return task;

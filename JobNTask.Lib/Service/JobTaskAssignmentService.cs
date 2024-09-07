@@ -26,7 +26,7 @@ public class JobTaskAssignmentService
 
         if (job != null && task != null)
         {
-            var currentJobId = _jobTaskRelationRepository.GetJobByTaskId(taskId);
+            var currentJobId = _jobTaskRelationRepository.GetJobIdByTaskId(taskId);
             if (currentJobId != null)
             {
                 throw new InvalidOperationException($"La tâche {taskId} est déjà assignée au job {currentJobId}.");
@@ -41,14 +41,14 @@ public class JobTaskAssignmentService
         _jobTaskRelationRepository.RemoveRelation(jobId, taskId);
     }
 
-    public List<ITask> GetTasksForJob(string jobId)
+    public List<ITask> GetTasksByJobId(string jobId)
     {
         var taskIds = _jobTaskRelationRepository.GetTasksByJobId(jobId);
-        return taskIds.Select(id => _taskRepository.GetTaskById(id)).ToList();
+        return taskIds.Select(id => _taskRepository.GetTaskById(id)).OfType<ITask>().ToList();
     }
 
-    public string GetJobForTask(string taskId)
+    public string? GetJobIdByTaskId(string taskId)
     {
-        return _jobTaskRelationRepository.GetJobByTaskId(taskId);
+        return _jobTaskRelationRepository.GetJobIdByTaskId(taskId);
     }
 }

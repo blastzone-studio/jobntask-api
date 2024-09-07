@@ -4,8 +4,6 @@ public class Task : ITask
 {
     public string Id { get; private set; }
     public string Description { get; private set; }
-    public bool IsCompleted { get; private set; }
-
     public ITaskAction Action { get; private set; }
 
     public int CurrentQuantity { get; set; } = 0;
@@ -21,5 +19,9 @@ public class Task : ITask
         Action = action;
         RequiredQuantity = requiredQuantity;
         Target = target;
+    }
+
+    public bool IsCompleted() {
+        return CurrentQuantity == RequiredQuantity;
     }
 }

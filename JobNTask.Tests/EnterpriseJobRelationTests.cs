@@ -8,10 +8,10 @@ namespace JobNTask.Tests;
 [TestClass]
 public class EnterpriseJobRelationTests
 {
-    private IEnterpriseRepository _enterpriseRepository;
-    private IJobRepository _jobRepository;
-    private IEnterpriseJobRelationRepository _relationRepository;
-    private EnterpriseJobService _enterpriseJobService;
+    private IEnterpriseRepository? _enterpriseRepository;
+    private IJobRepository? _jobRepository;
+    private IEnterpriseJobRelationRepository? _relationRepository;
+    private EnterpriseJobService? _enterpriseJobService;
 
     [TestInitialize]
     public void Setup()
@@ -28,15 +28,15 @@ public class EnterpriseJobRelationTests
         var enterprise = new Enterprise("1", "Tech Corp");
         var job = new Job("1", "Developer");
 
-        _enterpriseRepository.AddEnterprise(enterprise);
-        _enterpriseJobService.AddJobToEnterprise(enterprise.Id, job);
+        _enterpriseRepository!.AddEnterprise(enterprise);
+        _enterpriseJobService!.AddJobToEnterprise(enterprise.Id, job);
 
-        var jobs = _enterpriseJobService.GetJobsForEnterprise(enterprise.Id);
+        var jobs = _enterpriseJobService!.GetJobsForEnterprise(enterprise.Id);
         Assert.AreEqual(1, jobs.Count);
         Assert.AreEqual("Developer", jobs[0].Name);
 
-        _enterpriseJobService.RemoveJobFromEnterprise(enterprise.Id, job.Id);
-        jobs = _enterpriseJobService.GetJobsForEnterprise(enterprise.Id);
+        _enterpriseJobService!.RemoveJobFromEnterprise(enterprise.Id, job.Id);
+        jobs = _enterpriseJobService!.GetJobsForEnterprise(enterprise.Id);
         Assert.AreEqual(0, jobs.Count);
     }
 }

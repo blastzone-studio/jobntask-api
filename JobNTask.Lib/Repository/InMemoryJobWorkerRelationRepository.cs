@@ -23,7 +23,7 @@ public class InMemoryJobWorkerRelationRepository : IJobWorkerRelationRepository
         }
     }
 
-    public string GetWorkerByJobId(string jobId)
+    public string? GetWorkerIdByJobId(string jobId)
     {
         return _relations.FirstOrDefault(r => r.JobId == jobId)?.WorkerId;
     }

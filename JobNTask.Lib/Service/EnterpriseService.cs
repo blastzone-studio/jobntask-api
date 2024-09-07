@@ -37,7 +37,7 @@ public class EnterpriseService
     public List<IWorkerEntity> GetWorkersForEnterprise(string enterpriseId)
     {
         var workerIds = _relationRepository.GetWorkersByEnterpriseId(enterpriseId);
-        return workerIds.Select(id => _workerRepository.GetWorkerById(id)).ToList();
+        return workerIds.Select(id => _workerRepository.GetWorkerById(id)).OfType<IWorkerEntity>().ToList();
     }
 
     public void CreateJobForEnterprise(string enterpriseId, string jobId, string jobName)
@@ -55,9 +55,9 @@ public class EnterpriseService
         }
     }
 
-    public List<IJob> GetJobsForEnterprise(string enterpriseId)
+    public List<IJob> GetJobsByEnterpriseId(string enterpriseId)
     {
-        var jobIds = _enterpriseJobRelationRepository.GetJobsByEnterpriseId(enterpriseId);
-        return jobIds.Select(id => _jobRepository.GetJobById(id)).ToList();
+        var jobIds = _enterpriseJobRelationRepository.GetJobsIdByEnterpriseId(enterpriseId);
+        return jobIds.Select(id => _jobRepository.GetJobById(id)).OfType<IJob>().ToList();
     }
 }

@@ -3,16 +3,18 @@ using JobNTask.Lib.Model;
 using JobNTask.Lib.Repository;
 using JobNTask.Lib.Service;
 using System;
+using JobNTask.Lib.Examples.Action;
+using JobNTask.Lib.Examples.Target;
 
 namespace JobNTask.Tests;
 
 [TestClass]
 public class TaskAssignmentServiceTests
 {
-    private ITaskRepository _taskRepository;
-    private IWorkerRepository<IWorkerEntity> _workerRepository;
-    private ITaskWorkerRelationRepository _taskWorkerRelationRepository;
-    private WorkerTaskAssignmentService _taskAssignmentService;
+    private ITaskRepository? _taskRepository;
+    private IWorkerRepository<IWorkerEntity>? _workerRepository;
+    private ITaskWorkerRelationRepository? _taskWorkerRelationRepository;
+    private WorkerTaskAssignmentService? _taskAssignmentService;
 
     [TestInitialize]
     public void Setup()
@@ -29,17 +31,17 @@ public class TaskAssignmentServiceTests
     {
         var worker1 = new WorkerEntity("1");
         var worker2 = new WorkerEntity("2");
-        var task = new Task("1", "Fix the Bug");
+        var task = new Task("1", "Fix the Bug", new CutAction(), 1, new Tree());
 
-        _workerRepository.AddWorker(worker1);
-        _workerRepository.AddWorker(worker2);
-        _taskRepository.AddTask(task);
+        _workerRepository?.AddWorker(worker1);
+        _workerRepository?.AddWorker(worker2);
+        _taskRepository?.AddTask(task);
 
         // Assign task to the first worker
-        _taskAssignmentService.AssignTaskToWorker(task.Id, worker1.Id);
+        _taskAssignmentService?.AssignTaskToWorker(task.Id, worker1.Id);
 
         // Attempt to assign the same task to the second worker should throw an exception
-        _taskAssignmentService.AssignTaskToWorker(task.Id, worker2.Id);
+        _taskAssignmentService?.AssignTaskToWorker(task.Id, worker2.Id);
     }
 
 

@@ -23,7 +23,7 @@ public class InMemoryEnterpriseJobRelationRepository : IEnterpriseJobRelationRep
         }
     }
 
-    public List<string> GetJobsByEnterpriseId(string enterpriseId)
+    public List<string> GetJobsIdByEnterpriseId(string enterpriseId)
     {
         return _relations
             .Where(r => r.EnterpriseId == enterpriseId)
@@ -31,7 +31,7 @@ public class InMemoryEnterpriseJobRelationRepository : IEnterpriseJobRelationRep
             .ToList();
     }
 
-    public string GetEnterpriseByJobId(string jobId)
+    public string? GetEnterpriseIdByJobId(string jobId)
     {
         return _relations
             .Where(r => r.JobId == jobId)

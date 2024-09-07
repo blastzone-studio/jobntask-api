@@ -22,7 +22,7 @@ public class InMemoryWorkerRepository<T> : IWorkerRepository<T> where T : IWorke
         }
     }
 
-    public T GetWorkerById(string id)
+    public T? GetWorkerById(string id)
     {
         _workers.TryGetValue(id, out var worker);
         return worker;

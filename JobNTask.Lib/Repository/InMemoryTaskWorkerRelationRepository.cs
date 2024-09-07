@@ -23,7 +23,7 @@ public class InMemoryTaskWorkerRelationRepository : ITaskWorkerRelationRepositor
         }
     }
 
-    public string GetWorkerByTaskId(string taskId)
+    public string? GetWorkerIdByTaskId(string taskId)
     {
         return _relations.FirstOrDefault(r => r.TaskId == taskId)?.WorkerId;
     }

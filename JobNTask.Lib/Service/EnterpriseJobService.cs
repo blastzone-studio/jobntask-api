@@ -25,17 +25,21 @@ public class EnterpriseJobService
     public void RemoveJobFromEnterprise(string enterpriseId, string jobId)
     {
         _relationRepository.RemoveRelation(enterpriseId, jobId);
-        _jobRepository.RemoveJob(_jobRepository.GetJobById(jobId));
+
+        var job = _jobRepository.GetJobById(jobId);
+        if (job != null) {
+            _jobRepository.RemoveJob(job);
+        }
     }
 
     public List<IJob> GetJobsForEnterprise(string enterpriseId)
     {
-        var jobIds = _relationRepository.GetJobsByEnterpriseId(enterpriseId);
-        return jobIds.Select(id => _jobRepository.GetJobById(id)).ToList();
+        var jobIds = _relationRepository.GetJobsIdByEnterpriseId(enterpriseId);
+        return jobIds.Select(id => _jobRepository.GetJobById(id)).OfType<IJob>().ToList();
     }
 
-    public string GetEnterpriseForJob(string jobId)
+    public string? GetEnterpriseIdByJobId(string jobId)
     {
-        return _relationRepository.GetEnterpriseByJobId(jobId);
+        return _relationRepository.GetEnterpriseIdByJobId(jobId);
     }
 }

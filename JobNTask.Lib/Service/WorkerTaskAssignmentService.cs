@@ -26,7 +26,7 @@ public class WorkerTaskAssignmentService
         if (task != null && worker != null)
         {
             // Vérifier si la tâche est déjà assignée à un autre worker
-            var currentWorkerId = _taskWorkerRelationRepository.GetWorkerByTaskId(taskId);
+            var currentWorkerId = _taskWorkerRelationRepository.GetWorkerIdByTaskId(taskId);
             if (currentWorkerId != null)
             {
                 throw new InvalidOperationException($"La tâche {taskId} est déjà assignée au worker {currentWorkerId}.");
@@ -38,7 +38,7 @@ public class WorkerTaskAssignmentService
 
     public void RemoveTaskFromWorker(string taskId)
     {
-        var workerId = _taskWorkerRelationRepository.GetWorkerByTaskId(taskId);
+        var workerId = _taskWorkerRelationRepository.GetWorkerIdByTaskId(taskId);
         if (workerId != null)
         {
             _taskWorkerRelationRepository.RemoveRelation(taskId, workerId);
@@ -48,11 +48,20 @@ public class WorkerTaskAssignmentService
     public List<ITask> GetTasksForWorker(string workerId)
     {
         var taskIds = _taskWorkerRelationRepository.GetTasksByWorkerId(workerId);
-        return taskIds.Select(id => _taskRepository.GetTaskById(id)).ToList();
+        return taskIds.Select(id => _taskRepository.GetTaskById(id)).OfType<ITask>().ToList();
     }
 
-    public string GetWorkerForTask(string taskId)
+    public string? GetWorkerIdByTaskId(string taskId)
     {
-        return _taskWorkerRelationRepository.GetWorkerByTaskId(taskId);
+        return _taskWorkerRelationRepository.GetWorkerIdByTaskId(taskId);
+    }
+
+    public IWorkerEntity? GetWorkerByTaskId(string taskId)
+    {
+        string? workerId = _taskWorkerRelationRepository.GetWorkerIdByTaskId(taskId);
+        if (workerId != null) {
+            return _workerRepository.GetWorkerById(workerId);
+        } 
+        return null;
     }
 }

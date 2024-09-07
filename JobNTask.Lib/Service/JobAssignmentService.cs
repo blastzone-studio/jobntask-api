@@ -46,13 +46,30 @@ public class JobAssignmentService
         }
     }
 
-    public string GetEnterpriseForJob(string jobId)
+    public string? GetEnterpriseIdByJobId(string jobId)
     {
-        return _enterpriseJobRelationRepository.GetEnterpriseByJobId(jobId);
+        return _enterpriseJobRelationRepository.GetEnterpriseIdByJobId(jobId);
     }
 
-    public string GetWorkerForJob(string jobId)
+    public string? GetWorkerIdByJobId(string jobId)
     {
-        return _jobWorkerRelationRepository.GetWorkerByJobId(jobId);
+        return _jobWorkerRelationRepository.GetWorkerIdByJobId(jobId);
+    }
+    public IEnterprise? GetEnterpriseByJobId(string jobId)
+    {
+        string? enterpriseId = _enterpriseJobRelationRepository.GetEnterpriseIdByJobId(jobId);
+        if (enterpriseId != null) {
+            return _enterpriseRepository.GetEnterpriseById(enterpriseId);
+        }
+        return null;
+    }
+
+    public IWorkerEntity? GetWorkerByJobId(string jobId)
+    {
+        string? workerId = _jobWorkerRelationRepository.GetWorkerIdByJobId(jobId);
+        if (workerId != null) {
+            return _workerRepository.GetWorkerById(workerId);
+        }
+        return null;
     }
 }
